@@ -426,8 +426,8 @@ int main(int, char**)
     ImGui_ImplVulkan_Init(&init_info);
 
     // Load Fonts
-    // ImFont* robotoMono = io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto-Regular.ttf", 20.0f);
-    // IM_ASSERT(robotoMono != nullptr);
+    ImFont* font = io.Fonts->AddFontFromFileTTF("assets/fonts/RobotoMono-Regular.ttf", 17.0f);
+    assert(font != nullptr && "Font loading failed!");
 
     bool show_demo_window = true;
     bool show_another_window = false;

@@ -40,5 +40,8 @@ endif ()
 
 set(CMAKE_CXX_STANDARD 20)
 
+# Font import
+file(COPY ${CMAKE_SOURCE_DIR}/assets/fonts DESTINATION ${CMAKE_BINARY_DIR}/assets)
+
 # Import libs
 target_link_libraries(VulkanTemplate glfw ${Vulkan_LIBRARIES})
