@@ -1,11 +1,35 @@
 cmake_minimum_required(VERSION 4.0)
 project(VulkanTemplate)
+# Build target
+add_executable(VulkanTemplate main.cpp)
 
 include(FetchContent)
 # Declaring libs to import
 # GLFW
 FETCHCONTENT_DECLARE(GLFW GIT_REPOSITORY https://github.com/glfw/glfw.git GIT_TAG 3.4)
 FETCHCONTENT_MAKEAVAILABLE(GLFW)
+
+# OpenAL-Soft
+target_include_directories(VulkanTemplate PRIVATE external/openal-soft)
+target_sources(VulkanTemplate PRIVATE
+    external/openal-soft
+)
+
+# ImGUI
+set(IMGUI_DIR external/imgui/)
+target_include_directories(VulkanTemplate PRIVATE
+    ${IMGUI_DIR}
+    ${IMGUI_DIR}/backends
+)
+target_sources(VulkanTemplate PRIVATE
+    ${IMGUI_DIR}imgui.cpp
+    ${IMGUI_DIR}imgui_draw.cpp
+    ${IMGUI_DIR}imgui_tables.cpp
+    ${IMGUI_DIR}imgui_widgets.cpp
+    ${IMGUI_DIR}imgui_demo.cpp
+    ${IMGUI_DIR}/backends/imgui_impl_glfw.cpp
+    ${IMGUI_DIR}/backends/imgui_impl_vulkan.cpp
+)
 
 # Vulkan import
 find_package(Vulkan REQUIRED)
@@ -16,6 +40,5 @@ endif ()
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(VulkanTemplate main.cpp)
-
+# Import libs
 target_link_libraries(VulkanTemplate glfw ${Vulkan_LIBRARIES})
