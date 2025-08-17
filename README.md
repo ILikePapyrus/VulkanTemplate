@@ -1,6 +1,9 @@
 # VulkanTemplate
-A template repository that has a CMake file that includes imports for:
-- Vulkan
-- GLFW
-- OpenAL
-- Dear ImGui
+A template repository that has:
+- A CMake file that includes imports for:
+  - Vulkan
+  - GLFW
+  - OpenAL
+  - Dear ImGui
+- A simple window that showcases ImGui
+- (***TODO***) Profiling and graphs
