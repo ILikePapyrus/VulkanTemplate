@@ -1,7 +1,9 @@
 cmake_minimum_required(VERSION 4.0)
 project(VulkanTemplate)
 # Build target
-add_executable(VulkanTemplate main.cpp)
+add_executable(VulkanTemplate
+        main.cpp
+)
 
 include(FetchContent)
 # Declaring libs to import
