@@ -3,6 +3,10 @@ project(VulkanTemplate)
 # Build target
 add_executable(VulkanTemplate
         main.cpp
+        src/Profiler.cpp
+        src/Profiler.h
+        src/MainBar.cpp
+        src/MainBar.h
 )
 
 include(FetchContent)
@@ -31,6 +35,17 @@ target_sources(VulkanTemplate PRIVATE
     ${IMGUI_DIR}imgui_demo.cpp
     ${IMGUI_DIR}/backends/imgui_impl_glfw.cpp
     ${IMGUI_DIR}/backends/imgui_impl_vulkan.cpp
+)
+
+# ImPlot
+set(IMPLOT_DIR external/implot/)
+target_include_directories(VulkanTemplate PRIVATE
+    ${IMPLOT_DIR}
+)
+target_sources(VulkanTemplate PRIVATE
+    ${IMPLOT_DIR}implot.cpp
+    ${IMPLOT_DIR}implot_items.cpp
+    ${IMPLOT_DIR}implot_demo.cpp
 )
 
 # Vulkan import

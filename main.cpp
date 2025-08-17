@@ -2,9 +2,14 @@
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_vulkan.h"
+#include "implot.h"
+#include "implot_internal.h"
+#include "src/Profiler.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <GLFW/glfw3.h>
+
+#include "src/MainBar.h"
 
 #define GLFW_INCLUDE_NONE
 #define GLFW_INCLUDE_VULKAN
@@ -29,7 +34,9 @@ static uint32_t                 g_MinImageCount = 2;
 static bool                     g_SwapChainRebuild = false;
 
 static bool show_demo_window = false;
-bool show_another_window = false;
+static bool show_implot_demo_window = false;
+static bool show_profiler_window = false;
+static bool show_mainBar = false;
 
 static void glfw_error_callback(int error, const char* description)
 {
@@ -408,7 +415,7 @@ static ImGuiIO setupImGuiContext(GLFWwindow* window, ImGui_ImplVulkanH_Window* w
     ImGui::StyleColorsDark();
 
     // Setup backends
-    ImGui_ImplGlfw_InitForVulkan(window, false);
+    ImGui_ImplGlfw_InitForVulkan(window, true);
     ImGui_ImplVulkan_InitInfo init_info = {};
     init_info.Instance = g_Instance;
     init_info.PhysicalDevice = g_PhysicalDevice;
@@ -472,6 +479,24 @@ void keyCallback(GLFWwindow* wd, int key, int scancode, int action, int mods)
         printf("Toggle demo window!!\n");
     }
 
+    if (key == GLFW_KEY_F2 && action == GLFW_PRESS)
+    {
+        show_implot_demo_window = !show_implot_demo_window;
+        printf("Toggle ImPlot demo window!!\n");
+    }
+
+    if (key == GLFW_KEY_B && action == GLFW_PRESS)
+    {
+        show_mainBar = !show_mainBar;
+        printf("Toggle Main Menu Bar!");
+    }
+
+    if (key == GLFW_KEY_P && action == GLFW_PRESS)
+    {
+        show_profiler_window = !show_profiler_window;
+        printf("Toggle Profiler window!!\n");
+    }
+
     if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
     {
         printf("Closing window!!\n");
@@ -533,6 +558,23 @@ int main(int, char**)
         if (show_demo_window)
         {
             ImGui::ShowDemoWindow(&show_demo_window);
+        }
+
+        if (show_implot_demo_window)
+        {
+            ImGui::CreateContext();
+            ImPlot::CreateContext();
+            ImPlot::ShowDemoWindow(&show_implot_demo_window);
+        }
+
+        if (show_profiler_window)
+        {
+            showProfiler(&show_profiler_window);
+        }
+
+        if (show_mainBar)
+        {
+            showMainBar(&show_mainBar);
         }
 
         renderImGui(wd, clear_color, io);
