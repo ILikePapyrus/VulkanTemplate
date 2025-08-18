@@ -34,7 +34,6 @@ static uint32_t                 g_MinImageCount = 2;
 static bool                     g_SwapChainRebuild = false;
 
 static bool show_demo_window = false;
-static bool show_implot_demo_window = false;
 static bool show_profiler_window = false;
 static bool show_mainBar = false;
 
@@ -479,16 +478,11 @@ void keyCallback(GLFWwindow* wd, int key, int scancode, int action, int mods)
         printf("Toggle demo window!!\n");
     }
 
-    if (key == GLFW_KEY_F2 && action == GLFW_PRESS)
-    {
-        show_implot_demo_window = !show_implot_demo_window;
-        printf("Toggle ImPlot demo window!!\n");
-    }
 
     if (key == GLFW_KEY_B && action == GLFW_PRESS)
     {
         show_mainBar = !show_mainBar;
-        printf("Toggle Main Menu Bar!");
+        printf("Toggle Main Menu Bar!\n");
     }
 
     if (key == GLFW_KEY_P && action == GLFW_PRESS)
@@ -497,7 +491,7 @@ void keyCallback(GLFWwindow* wd, int key, int scancode, int action, int mods)
         printf("Toggle Profiler window!!\n");
     }
 
-    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+    if (key == GLFW_KEY_X && action == GLFW_PRESS)
     {
         printf("Closing window!!\n");
         glfwSetWindowShouldClose(wd, true);
@@ -553,24 +547,6 @@ int main(int, char**)
         ImGui_ImplVulkan_NewFrame();
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
-
-        // Show demo window
-        if (show_demo_window)
-        {
-            ImGui::ShowDemoWindow(&show_demo_window);
-        }
-
-        if (show_implot_demo_window)
-        {
-            ImGui::CreateContext();
-            ImPlot::CreateContext();
-            ImPlot::ShowDemoWindow(&show_implot_demo_window);
-        }
-
-        if (show_profiler_window)
-        {
-            showProfiler(&show_profiler_window);
-        }
 
         if (show_mainBar)
         {

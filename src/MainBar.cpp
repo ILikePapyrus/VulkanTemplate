@@ -1,26 +1,97 @@
 #include "MainBar.h"
 
+// Boolean to keep track of open windows
+bool showImPlotDemo = false;
+bool showImGuiDemo = false;
+
+bool showShortcutsWindow = false;
+bool showAboutWindow = false;
+
+void drawAboutWindow()
+{
+    // Set parameters for window
+    ImGui::SetNextWindowPos({200, 150}, ImGuiCond_FirstUseEver);
+    ImGui::SetNextWindowSize({400, 300}, ImGuiCond_FirstUseEver);
+
+    // Window Title
+    ImGui::Begin("About", &showAboutWindow);
+
+    ImGui::Text("Vulkan Template v1.0");
+    ImGui::Text("Author: ");
+    ImGui::SameLine();
+    ImGui::TextLinkOpenURL("Pipirus", "https://github.com/ILikePapyrus");
+    ImGui::Text("Dear ImGui %s", IMGUI_VERSION);
+
+    // End drawing window
+    ImGui::End();
+};
+
 void showMainBar(bool* p_open)
 {
     if (ImGui::BeginMainMenuBar())
     {
         if (ImGui::BeginMenu("Profiler"))
         {
-            if (ImGui::MenuItem("CPU")) {}
-            if (ImGui::MenuItem("GPU")) {}
-            if (ImGui::MenuItem("Battery")) {}
+            if (ImGui::MenuItem("CPU"))
+            {
+                printf("CPU Profiler\n");
+            }
+            if (ImGui::MenuItem("GPU"))
+            {
+                printf("GPU Profiler\n");
+            }
+            if (ImGui::MenuItem("Memory"))
+            {
+                printf("Memory Profiler\n");
+            }
+            if (ImGui::MenuItem("Battery"))
+            {
+                printf("Battery Profiler\n");
+            }
             ImGui::Separator();
-            if (ImGui::MenuItem("System Details")) {}
+            if (ImGui::MenuItem("System Details"))
+            {
+                printf("System Details\n");
+            }
             ImGui::EndMenu();
         }
-        ImGui::MenuItem("ImPlot Demo");
-        ImGui::MenuItem("ImGui Demo");
+        if (ImGui::MenuItem("ImPlot Demo", NULL, &showImPlotDemo))
+        {
+            printf("ImPlot Demo\n");
+        };
+        if (ImGui::MenuItem("ImGui Demo", NULL, &showImGuiDemo))
+        {
+            printf("ImGui Demo\n");
+        };
         if (ImGui::BeginMenu("Help"))
         {
-            if (ImGui::MenuItem("Shortcuts")) {}
-            if (ImGui::MenuItem("About")) {}
+            // if (ImGui::MenuItem("Shortcuts", NULL, &showShortcutsWindow))
+            // {
+            //     printf("Shortcuts\n");
+            // }
+            if (ImGui::MenuItem("About", NULL, &showAboutWindow))
+            {
+                printf("About\n");
+            }
             ImGui::EndMenu();
         }
         ImGui::EndMainMenuBar();
+    }
+
+    if (showImPlotDemo)
+    {
+        ImGui::CreateContext();
+        ImPlot::CreateContext();
+        ImPlot::ShowDemoWindow(&showImPlotDemo);
+    }
+
+    if (showImGuiDemo)
+    {
+        ImGui::ShowDemoWindow();
+    }
+
+    if (showAboutWindow)
+    {
+        drawAboutWindow();
     }
 }
