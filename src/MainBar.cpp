@@ -3,10 +3,10 @@
 // Boolean to keep track of open windows
 bool showImPlotDemo = false;
 bool showImGuiDemo = false;
-
-bool showShortcutsWindow = false;
+bool showAudioDemo = false;
 bool showAboutWindow = false;
 
+// Draw windows
 void drawAboutWindow()
 {
     // Set parameters for window
@@ -63,12 +63,9 @@ void showMainBar(bool* p_open)
         {
             printf("ImGui Demo\n");
         };
+        if (ImGui::MenuItem("Audio Demo", NULL, &showAudioDemo)) {}
         if (ImGui::BeginMenu("Help"))
         {
-            // if (ImGui::MenuItem("Shortcuts", NULL, &showShortcutsWindow))
-            // {
-            //     printf("Shortcuts\n");
-            // }
             if (ImGui::MenuItem("About", NULL, &showAboutWindow))
             {
                 printf("About\n");
@@ -78,6 +75,7 @@ void showMainBar(bool* p_open)
         ImGui::EndMainMenuBar();
     }
 
+    // Call draw windows functions when booleans change state
     if (showImPlotDemo)
     {
         ImGui::CreateContext();

@@ -8,6 +8,7 @@
 #include <GLFW/glfw3.h>
 
 #include "src/MainBar.h"
+#include "src/Profiler.h"
 
 #define GLFW_INCLUDE_NONE
 #define GLFW_INCLUDE_VULKAN
@@ -31,8 +32,6 @@ static ImGui_ImplVulkanH_Window g_MainWindowData;
 static uint32_t                 g_MinImageCount = 2;
 static bool                     g_SwapChainRebuild = false;
 
-static bool show_demo_window = false;
-static bool show_profiler_window = false;
 static bool show_mainBar = false;
 
 static void glfw_error_callback(int error, const char* description)
@@ -470,22 +469,10 @@ void keyCallback(GLFWwindow* wd, int key, int scancode, int action, int mods)
 {
     ImGui_ImplGlfw_KeyCallback(wd, key, scancode, action, mods);
 
-    if (key == GLFW_KEY_F1 && action == GLFW_PRESS)
-    {
-        show_demo_window = !show_demo_window;
-        printf("Toggle demo window!!\n");
-    }
-
     if (key == GLFW_KEY_B && action == GLFW_PRESS)
     {
         show_mainBar = !show_mainBar;
         printf("Toggle Main Menu Bar!\n");
-    }
-
-    if (key == GLFW_KEY_P && action == GLFW_PRESS)
-    {
-        show_profiler_window = !show_profiler_window;
-        printf("Toggle Profiler window!!\n");
     }
 
     if (key == GLFW_KEY_X && action == GLFW_PRESS)
@@ -501,14 +488,19 @@ int main(int, char**)
     // Detect OS
 #if defined(_WIN32) || defined(_WIN64)
     std::cout << "Running on Windows\n";
+    getOS(0);
 #elif defined(__APPLE__) && defined(__MACH__)
     std::cout << "Running on macOS\n";
+    getOS(1);
 #elif defined(__linux)
     std::cout << "Running on Linux\n";
+    getOS(2);
 #elif defined(__unix__)
     std::cout << "Running on a Unix-like OS\n";
+    getOS(3);
 #else
     std::cout << "Unknown OS\n";
+    getOS(4);
 #endif
 
     glfwSetErrorCallback(glfw_error_callback);
