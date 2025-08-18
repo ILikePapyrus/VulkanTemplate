@@ -2,11 +2,9 @@
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_vulkan.h"
-#include "implot.h"
-#include "implot_internal.h"
-#include "src/Profiler.h"
-#include <stdio.h>
-#include <stdlib.h>
+#include <cstdio>
+#include <cstdlib>
+#include <iostream>
 #include <GLFW/glfw3.h>
 
 #include "src/MainBar.h"
@@ -478,7 +476,6 @@ void keyCallback(GLFWwindow* wd, int key, int scancode, int action, int mods)
         printf("Toggle demo window!!\n");
     }
 
-
     if (key == GLFW_KEY_B && action == GLFW_PRESS)
     {
         show_mainBar = !show_mainBar;
@@ -501,6 +498,19 @@ void keyCallback(GLFWwindow* wd, int key, int scancode, int action, int mods)
 // Main
 int main(int, char**)
 {
+    // Detect OS
+#if defined(_WIN32) || defined(_WIN64)
+    std::cout << "Running on Windows\n";
+#elif defined(__APPLE__) && defined(__MACH__)
+    std::cout << "Running on macOS\n";
+#elif defined(__linux)
+    std::cout << "Running on Linux\n";
+#elif defined(__unix__)
+    std::cout << "Running on a Unix-like OS\n";
+#else
+    std::cout << "Unknown OS\n";
+#endif
+
     glfwSetErrorCallback(glfw_error_callback);
     if (!glfwInit())
     {
