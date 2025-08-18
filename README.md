@@ -1,4 +1,6 @@
 # VulkanTemplate
+###### *Currently supports only Windows*
+
 A template repository that has:
 - A CMake file that includes imports for:
   - Vulkan
