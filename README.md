@@ -7,5 +7,11 @@ A template repository that has:
   - GLFW
   - OpenAL
   - Dear ImGui
-- A simple window that showcases ImGui
-- (***TODO***) Profiling and graphs
+  - ImPlot
+- Default demo windows for Dear ImGui and ImPlot
+- A menubar to open windows
+
+  
+# ***TODO*** 
+- Profiling and graphs
+- OS recognition
