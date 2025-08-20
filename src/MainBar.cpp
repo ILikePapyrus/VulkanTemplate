@@ -1,19 +1,24 @@
 #include "MainBar.h"
 
+#include "AudioEngine.h"
+
 // Boolean to keep track of open windows
 bool showImPlotDemo = false;
 bool showImGuiDemo = false;
 bool showAudioDemo = false;
 bool showAboutWindow = false;
 
+// Audio
+
+
 // Draw windows
 void drawAboutWindow()
 {
-    // Set parameters for window
+    // Set window parameters
     ImGui::SetNextWindowPos({200, 150}, ImGuiCond_FirstUseEver);
     ImGui::SetNextWindowSize({400, 300}, ImGuiCond_FirstUseEver);
 
-    // Window Title
+    // Start drawing window
     ImGui::Begin("About", &showAboutWindow);
 
     ImGui::Text("Vulkan Template v1.0");
@@ -25,6 +30,38 @@ void drawAboutWindow()
     // End drawing window
     ImGui::End();
 };
+
+float gainValue = 1;
+
+void drawAudioDemo()
+{
+    // Set window parameters
+    ImGui::SetNextWindowPos({100, 150}, ImGuiCond_FirstUseEver);
+    ImGui::SetNextWindowSize({600, 300}, ImGuiCond_FirstUseEver);
+
+    // Start drawing window
+    ImGui::Begin("Audio Demo", &showAudioDemo);
+
+    // Widgets
+    ImGui::Text("IMPORTANT: Init Audio Engine before playing and stop it after!!!");
+    ImGui::Button("Init Audio Engine");
+    ImGui::Separator();
+    if (ImGui::Button("Play"))
+    {
+
+    }
+    ImGui::SameLine();
+    if (ImGui::Button("Pause"))
+    {
+
+    }
+    ImGui::SliderFloat("Gain", &gainValue, 0, 1);
+    ImGui::Separator();
+    ImGui::Button("Stop Audio Engine");
+
+    // End drawing window
+    ImGui::End();
+}
 
 void showMainBar(bool* p_open)
 {
@@ -63,7 +100,11 @@ void showMainBar(bool* p_open)
         {
             printf("ImGui Demo\n");
         };
-        if (ImGui::MenuItem("Audio Demo", NULL, &showAudioDemo)) {}
+        if (ImGui::MenuItem("Audio Demo", NULL, &showAudioDemo))
+        {
+            printf("Audio Demo\n");
+            drawAudioDemo();
+        }
         if (ImGui::BeginMenu("Help"))
         {
             if (ImGui::MenuItem("About", NULL, &showAboutWindow))
@@ -86,6 +127,11 @@ void showMainBar(bool* p_open)
     if (showImGuiDemo)
     {
         ImGui::ShowDemoWindow();
+    }
+
+    if (showAudioDemo)
+    {
+        drawAudioDemo();
     }
 
     if (showAboutWindow)

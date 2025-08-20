@@ -7,11 +7,15 @@
 #include <iostream>
 #include <GLFW/glfw3.h>
 
+#include "src/AudioEngine.h"
 #include "src/MainBar.h"
 #include "src/Profiler.h"
 
 #define GLFW_INCLUDE_NONE
 #define GLFW_INCLUDE_VULKAN
+
+#define BOOST_VERSION_NUMBER( major, minor, patch)
+#define BOOST_COMP_GNUC
 
 #ifdef _DEBUG
 #define APP_USE_VULKAN_DEBUG_REPORT
@@ -485,23 +489,7 @@ void keyCallback(GLFWwindow* wd, int key, int scancode, int action, int mods)
 // Main
 int main(int, char**)
 {
-    // Detect OS
-#if defined(_WIN32) || defined(_WIN64)
-    std::cout << "Running on Windows\n";
-    getOS(0);
-#elif defined(__APPLE__) && defined(__MACH__)
-    std::cout << "Running on macOS\n";
-    getOS(1);
-#elif defined(__linux)
-    std::cout << "Running on Linux\n";
-    getOS(2);
-#elif defined(__unix__)
-    std::cout << "Running on a Unix-like OS\n";
-    getOS(3);
-#else
-    std::cout << "Unknown OS\n";
-    getOS(4);
-#endif
+
 
     glfwSetErrorCallback(glfw_error_callback);
     if (!glfwInit())
