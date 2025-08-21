@@ -7,7 +7,6 @@
 #include <iostream>
 #include <GLFW/glfw3.h>
 
-#include "src/AudioEngine.h"
 #include "src/MainBar.h"
 #include "src/Profiler.h"
 
@@ -489,8 +488,6 @@ void keyCallback(GLFWwindow* wd, int key, int scancode, int action, int mods)
 // Main
 int main(int, char**)
 {
-
-
     glfwSetErrorCallback(glfw_error_callback);
     if (!glfwInit())
     {
@@ -538,11 +535,13 @@ int main(int, char**)
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
 
+        // If "B" is pressed, render the ImGui mainBar
         if (show_mainBar)
         {
             showMainBar(&show_mainBar);
         }
 
+        // Render Dear ImGui windows
         renderImGui(wd, clear_color, io);
     }
 

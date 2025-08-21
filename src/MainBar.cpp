@@ -1,6 +1,8 @@
 #include "MainBar.h"
 
-// #include "AudioEngine.h"
+#include "SoundBuffer.h"
+#include "SoundDevice.h"
+#include "SoundSource.h"
 
 // Boolean to keep track of open windows
 bool showImPlotDemo = false;
@@ -8,8 +10,9 @@ bool showImGuiDemo = false;
 bool showAudioDemo = false;
 bool showAboutWindow = false;
 
-// Audio
-// AudioEngine audioEngine;
+void initAudio()
+{
+}
 
 // Draw windows
 void drawAboutWindow()
@@ -21,7 +24,7 @@ void drawAboutWindow()
     // Start drawing window
     ImGui::Begin("About", &showAboutWindow);
 
-    ImGui::Text("Vulkan Template v1.0");
+    ImGui::Text("Vulkan Template v1.0a");
     ImGui::Text("Author: ");
     ImGui::SameLine();
     ImGui::TextLinkOpenURL("Pipirus", "https://github.com/ILikePapyrus");
@@ -31,48 +34,39 @@ void drawAboutWindow()
     ImGui::End();
 };
 
-float gainValue = 1;
+// Draw audio player demo window
+void drawAudioDemo()
+{
+    // Set window parameters
+    ImGui::SetNextWindowPos({100, 150}, ImGuiCond_FirstUseEver);
+    ImGui::SetNextWindowSize({600, 300}, ImGuiCond_FirstUseEver);
 
-// void drawAudioDemo()
-// {
-//     // Set window parameters
-//     ImGui::SetNextWindowPos({100, 150}, ImGuiCond_FirstUseEver);
-//     ImGui::SetNextWindowSize({600, 300}, ImGuiCond_FirstUseEver);
-//
-//     // Start drawing window
-//     ImGui::Begin("Audio Demo", &showAudioDemo);
-//
-//     // Widgets
-//     ImGui::Text("IMPORTANT: Init Audio Engine before playing and stop it after!!!");
-//     if (ImGui::Button("Init Audio Engine"))
-//     {
-//         audioEngine.Init();
-//         audioEngine.LoadSound("assets/audio/guitar-loop.wav");
-//     }
-//     ImGui::Separator();
-//     if (ImGui::Button("Play"))
-//     {
-//         audioEngine.SetVolume(0.8f);
-//         audioEngine.Play();
-//     }
-//     ImGui::SameLine();
-//     if (ImGui::Button("Pause"))
-//     {
-//         audioEngine.Stop();
-//     }
-//     if (ImGui::SliderFloat("Gain", &gainValue, 0, 1))
-//     {
-//         audioEngine.SetVolume(gainValue);
-//     }
-//     ImGui::Separator();
-//     if (ImGui::Button("Stop Audio Engine"))
-//     {
-//         audioEngine.Stop();
-//     }
-//
-//     // End drawing window
-//     ImGui::End();
-// }
+    // Start drawing window
+    ImGui::Begin("Audio Demo", &showAudioDemo);
+
+    // Initialize audio
+    SoundDevice* soundDevice;
+    SoundSource speaker;
+    soundDevice = SoundDevice::get();
+
+    // Widgets
+    if (ImGui::Button("Play"))
+    {
+        ALuint sound = SoundBuffer::get()->addSoundEffect("C:\\Users\\User.DESKTOP-F8V8KPI\\CLionProjects\\VulkanTemplate\\assets\\audio\\guitar-loop.wav");
+        speaker.Play(sound);
+    }
+    ImGui::SameLine();
+    if (ImGui::Button("Pause"))
+    {
+
+    }
+
+    float startValue = 1;
+    if (ImGui::SliderFloat("Gain", &startValue, 0, 10));
+
+    // End drawing window
+    ImGui::End();
+}
 
 void showMainBar(bool* p_open)
 {
@@ -114,7 +108,7 @@ void showMainBar(bool* p_open)
         if (ImGui::MenuItem("Audio Demo", NULL, &showAudioDemo))
         {
             printf("Audio Demo\n");
-            // drawAudioDemo();
+            drawAudioDemo();
         }
         if (ImGui::BeginMenu("Help"))
         {
@@ -142,7 +136,7 @@ void showMainBar(bool* p_open)
 
     if (showAudioDemo)
     {
-        // drawAudioDemo();
+        drawAudioDemo();
     }
 
     if (showAboutWindow)

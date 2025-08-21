@@ -7,19 +7,26 @@ add_executable(VulkanTemplate
         src/Profiler.h
         src/MainBar.cpp
         src/MainBar.h
+        src/SoundBuffer.cpp
+        src/SoundBuffer.h
+        src/SoundDevice.cpp
+        src/SoundDevice.h
+        src/SoundSource.cpp
+        src/SoundSource.h
 )
 
 include(FetchContent)
+
 # Declaring libs to import
 # GLFW
 FETCHCONTENT_DECLARE(GLFW GIT_REPOSITORY https://github.com/glfw/glfw.git GIT_TAG 3.4)
 FETCHCONTENT_MAKEAVAILABLE(GLFW)
 
 # OpenAL-Soft
-target_include_directories(VulkanTemplate PRIVATE external/openal-soft)
-target_sources(VulkanTemplate PRIVATE
-    external/openal-soft
-)
+find_package(OpenAL CONFIG REQUIRED)
+
+# libsndfile
+find_package(SndFile CONFIG REQUIRED)
 
 # ImGUI
 set(IMGUI_DIR external/imgui/)
@@ -61,4 +68,4 @@ set(CMAKE_CXX_STANDARD 20)
 file(COPY ${CMAKE_SOURCE_DIR}/assets/fonts DESTINATION ${CMAKE_BINARY_DIR}/assets)
 
 # Import libs
-target_link_libraries(VulkanTemplate glfw ${Vulkan_LIBRARIES})
+target_link_libraries(VulkanTemplate glfw ${Vulkan_LIBRARIES} OpenAL::OpenAL SndFile::sndfile)
