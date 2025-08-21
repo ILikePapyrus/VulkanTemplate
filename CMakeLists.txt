@@ -7,8 +7,6 @@ add_executable(VulkanTemplate
         src/Profiler.h
         src/MainBar.cpp
         src/MainBar.h
-        src/AudioEngine.cpp
-        src/AudioEngine.h
 )
 
 include(FetchContent)

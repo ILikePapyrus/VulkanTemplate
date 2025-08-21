@@ -7,3 +7,6 @@
 [submodule "external/libsndfile"]
 	path = external/libsndfile
 	url = https://github.com/libsndfile/libsndfile.git
+[submodule "external/implot"]
+	path = external/implot
+	url = https://github.com/epezent/implot
