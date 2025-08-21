@@ -7,6 +7,7 @@
     <mapping directory="$PROJECT_DIR$/cmake-build-debug/_deps/openal-soft-src" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/external/imgui" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/external/implot" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/external/libsndfile" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/external/openal-soft" vcs="Git" />
   </component>
 </project>

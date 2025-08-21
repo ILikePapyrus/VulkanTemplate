@@ -9,7 +9,7 @@ bool showAudioDemo = false;
 bool showAboutWindow = false;
 
 // Audio
-
+AudioEngine audioEngine;
 
 // Draw windows
 void drawAboutWindow()
@@ -44,20 +44,31 @@ void drawAudioDemo()
 
     // Widgets
     ImGui::Text("IMPORTANT: Init Audio Engine before playing and stop it after!!!");
-    ImGui::Button("Init Audio Engine");
+    if (ImGui::Button("Init Audio Engine"))
+    {
+        audioEngine.Init();
+        audioEngine.LoadSound("assets/audio/guitar-loop.wav");
+    }
     ImGui::Separator();
     if (ImGui::Button("Play"))
     {
-
+        audioEngine.SetVolume(0.8f);
+        audioEngine.Play();
     }
     ImGui::SameLine();
     if (ImGui::Button("Pause"))
     {
-
+        audioEngine.Stop();
     }
-    ImGui::SliderFloat("Gain", &gainValue, 0, 1);
+    if (ImGui::SliderFloat("Gain", &gainValue, 0, 1))
+    {
+        audioEngine.SetVolume(gainValue);
+    }
     ImGui::Separator();
-    ImGui::Button("Stop Audio Engine");
+    if (ImGui::Button("Stop Audio Engine"))
+    {
+        audioEngine.Stop();
+    }
 
     // End drawing window
     ImGui::End();

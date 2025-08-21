@@ -3,7 +3,7 @@
 #include <vector>
 #include <fstream>
 
-AudioEngine::AudioEngine : device(nullptr), context(nullptr), buffer(0), source(0), isInitialized(false) {}
+AudioEngine::AudioEngine() : buffer(0), source(0), device(nullptr), context(nullptr), isInitialized(false) {}
 
 AudioEngine::~AudioEngine()
 {

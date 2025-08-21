@@ -3,6 +3,7 @@
 #include <string>
 #include "include/AL/al.h"
 #include "include/AL/alc.h"
+#include "include/AL/alext.h"
 
 class AudioEngine
 {
