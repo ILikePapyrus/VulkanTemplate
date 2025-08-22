@@ -18,7 +18,7 @@ void playSound()
     SoundSource speaker;
     soundDevice = SoundDevice::get();
 
-    ALuint sound = SoundBuffer::get()->addSoundEffect("C:\\Users\\User.DESKTOP-F8V8KPI\\CLionProjects\\VulkanTemplate\\assets\\audio\\guitar-loop.wav");
+    ALuint sound = SoundBuffer::get()->addSoundEffect("..\\assets\\audio\\guitar-loop.wav");
     speaker.Play(sound);
 }
 
