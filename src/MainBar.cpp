@@ -3,6 +3,7 @@
 #include "SoundBuffer.h"
 #include "SoundDevice.h"
 #include "SoundSource.h"
+#include <thread>
 
 // Boolean to keep track of open windows
 bool showImPlotDemo = false;
@@ -10,8 +11,15 @@ bool showImGuiDemo = false;
 bool showAudioDemo = false;
 bool showAboutWindow = false;
 
-void initAudio()
+void playSound()
 {
+    // Initialize audio
+    SoundDevice* soundDevice;
+    SoundSource speaker;
+    soundDevice = SoundDevice::get();
+
+    ALuint sound = SoundBuffer::get()->addSoundEffect("C:\\Users\\User.DESKTOP-F8V8KPI\\CLionProjects\\VulkanTemplate\\assets\\audio\\guitar-loop.wav");
+    speaker.Play(sound);
 }
 
 // Draw windows
@@ -44,21 +52,15 @@ void drawAudioDemo()
     // Start drawing window
     ImGui::Begin("Audio Demo", &showAudioDemo);
 
-    // Initialize audio
-    SoundDevice* soundDevice;
-    SoundSource speaker;
-    soundDevice = SoundDevice::get();
-
     // Widgets
     if (ImGui::Button("Play"))
     {
-        ALuint sound = SoundBuffer::get()->addSoundEffect("C:\\Users\\User.DESKTOP-F8V8KPI\\CLionProjects\\VulkanTemplate\\assets\\audio\\guitar-loop.wav");
-        speaker.Play(sound);
+        std::thread(playSound).detach();
     }
     ImGui::SameLine();
     if (ImGui::Button("Pause"))
     {
-
+        printf("Trying to pause audio playback, but the button doesn't have the functionality\n");
     }
 
     float startValue = 1;
