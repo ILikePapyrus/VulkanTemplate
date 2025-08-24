@@ -26,6 +26,7 @@ public:
     void drawFPSwindow() const;
     void drawBatteryLevelwindow() const;
     void drawMemoryWindow() const;
+    void drawSystemDetailsWindow() const;
 private:
     std::vector<float> fpsHistory;
     std::vector<float> batteryHistory;

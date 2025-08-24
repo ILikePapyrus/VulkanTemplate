@@ -12,6 +12,7 @@ extern Profiler profiler;
 bool showFPS = false;
 bool showBattery = false;
 bool showMemory = false;
+bool showSystemDetails = false;
 bool showImPlotDemo = false;
 bool showImGuiDemo = false;
 bool showAudioDemo = false;
@@ -107,9 +108,10 @@ void showMainBar(bool* p_open)
                 profiler.drawFPSwindow();
             }
             ImGui::Separator();
-            if (ImGui::MenuItem("System Details"))
+            if (ImGui::MenuItem("System Details", NULL, &showSystemDetails))
             {
                 printf("System Details\n");
+                profiler.drawSystemDetailsWindow();
             }
             ImGui::EndMenu();
         }
@@ -151,6 +153,11 @@ void showMainBar(bool* p_open)
     if (showMemory)
     {
         profiler.drawMemoryWindow();
+    }
+
+    if (showSystemDetails)
+    {
+        profiler.drawSystemDetailsWindow();
     }
 
     if (showImPlotDemo)

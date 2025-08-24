@@ -160,3 +160,23 @@ void Profiler::drawMemoryWindow() const
 
     ImGui::End();
 }
+
+void Profiler::drawSystemDetailsWindow() const
+{
+    // Window Parameters
+    ImGui::SetNextWindowPos({300, 300}, ImGuiCond_FirstUseEver);
+    ImGui::SetNextWindowSize({300, 300}, ImGuiCond_FirstUseEver);
+
+    ImGui::Begin("System Details");
+
+    SYSTEM_INFO systemInfo;
+    GetSystemInfo(&systemInfo);
+
+    ImGui::Text("System Info:");
+    ImGui::Text("Processor Architecture: %u", systemInfo.wProcessorArchitecture);
+    ImGui::Text("# of Processors: %u", systemInfo.dwNumberOfProcessors);
+    ImGui::Text("Page Size: %u", systemInfo.dwPageSize);
+    ImGui::Text("Processor Type: %u", systemInfo.dwProcessorType);
+
+    ImGui::End();
+}
