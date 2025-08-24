@@ -5,7 +5,10 @@
 #include "SoundSource.h"
 #include <thread>
 
+extern Profiler profiler;
+
 // Boolean to keep track of open windows
+bool showFPS = false;
 bool showImPlotDemo = false;
 bool showImGuiDemo = false;
 bool showAudioDemo = false;
@@ -93,6 +96,12 @@ void showMainBar(bool* p_open)
                 printf("Battery Profiler\n");
             }
             ImGui::Separator();
+            if (ImGui::MenuItem("FPS Counter", NULL, &showFPS))
+            {
+                printf("FPS Counter\n");
+                profiler.drawFPSwindow();
+            }
+            ImGui::Separator();
             if (ImGui::MenuItem("System Details"))
             {
                 printf("System Details\n");
@@ -124,6 +133,11 @@ void showMainBar(bool* p_open)
     }
 
     // Call draw windows functions when booleans change state
+    if (showFPS)
+    {
+        profiler.drawFPSwindow();
+    }
+
     if (showImPlotDemo)
     {
         ImGui::CreateContext();

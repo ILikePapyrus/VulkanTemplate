@@ -6,6 +6,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <GLFW/glfw3.h>
+#include <chrono>
 
 #include "src/MainBar.h"
 #include "src/Profiler.h"
@@ -13,13 +14,14 @@
 #define GLFW_INCLUDE_NONE
 #define GLFW_INCLUDE_VULKAN
 
-#define BOOST_VERSION_NUMBER( major, minor, patch)
-#define BOOST_COMP_GNUC
-
 #ifdef _DEBUG
 #define APP_USE_VULKAN_DEBUG_REPORT
 static VkDebugReportCallbackEXT g_DebugReport = VK_NULL_HANDLE;
 #endif
+
+// Select modes for unlimited fps
+// If commented the code will stick to 60fps v-sync
+// #define APP_USE_UNLIMITED_FRAME_RATE
 
 // Data
 static VkAllocationCallbacks*   g_Allocator = nullptr;
@@ -36,6 +38,9 @@ static uint32_t                 g_MinImageCount = 2;
 static bool                     g_SwapChainRebuild = false;
 
 static bool show_mainBar = false;
+
+// Call instance of Profiler to get FPS
+extern Profiler profiler;
 
 static void glfw_error_callback(int error, const char* description)
 {
@@ -525,8 +530,6 @@ int main(int, char**)
     // Main Loop
     while (!glfwWindowShouldClose(window))
     {
-        glfwPollEvents();
-
         // Resize swap chain
         resizeSwapChain(window);
 
@@ -543,6 +546,12 @@ int main(int, char**)
 
         // Render Dear ImGui windows
         renderImGui(wd, clear_color, io);
+
+        // Pass info to plot FPS
+        profiler.frame();
+        float currentFps = profiler.getFPS();
+
+        glfwPollEvents();
     }
 
     // Cleanup

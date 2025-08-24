@@ -1,35 +1,38 @@
 #include "Profiler.h"
 
-// Platform booleans
-bool windows;
-bool macOs;
-bool linux;
-bool unix;
-bool unknown;
+#include "GLFW/glfw3.h"
 
-bool getOS(int n)
+// FPS processing logic
+void Profiler::frame()
 {
-    switch (n)
-    {
-        case 0:
-            windows = true;
-            return windows;
-        case 1:
-            macOs = true;
-            return macOs;
-        case 2:
-            linux = true;
-            return linux;
-        case 3:
-            unix = true;
-            return unix;
-        case 4:
-            unknown = true;
-            return unknown;
+    // Calculate FPS
+    static float lastTime = 0.0f;
+    float currentTime = static_cast<float>(glfwGetTime());
+    currentFPS = 1.0f / (currentTime - lastTime);
+    lastTime = currentTime;
+
+    // Store history
+    fpsHistory.push_back(currentFPS);
+    if (fpsHistory.size() > 100) {
+        fpsHistory.erase(fpsHistory.begin());
     }
 }
 
-void showProfiler(bool* p_open)
-{
+// Get data from Main Loop
+float Profiler::getFPS() const { return currentFPS; }
 
+// Draw an ImGui + ImPlot window for FPS
+void Profiler::drawFPSwindow() const
+{
+    ImGui::Begin("FPS");
+
+    ImPlot::CreateContext();
+    if (ImPlot::BeginPlot("FPS Over Time"))
+    {
+        ImPlot::PlotLine("FPS", fpsHistory.data(), static_cast<int>(fpsHistory.size()));
+        ImPlot::EndPlot();
+    }
+
+    ImGui::Text("Current FPS: %.2f", currentFPS);
+    ImGui::End();
 }
