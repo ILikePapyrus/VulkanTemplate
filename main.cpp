@@ -547,9 +547,13 @@ int main(int, char**)
         // Render Dear ImGui windows
         renderImGui(wd, clear_color, io);
 
-        // Pass info to plot FPS
+        // Pass info to profiler
         profiler.frame();
+        profiler.batteryLogic();
+        profiler.memoryLogic();
         float currentFps = profiler.getFPS();
+        float currentBatteryLevel = profiler.getBatteryLevel();
+        Profiler::RAMStats currentRAM = Profiler::getRAMStats();
 
         glfwPollEvents();
     }

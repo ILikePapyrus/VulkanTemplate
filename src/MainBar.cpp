@@ -5,10 +5,13 @@
 #include "SoundSource.h"
 #include <thread>
 
+// Call instance of Profiler to draw windows
 extern Profiler profiler;
 
 // Boolean to keep track of open windows
 bool showFPS = false;
+bool showBattery = false;
+bool showMemory = false;
 bool showImPlotDemo = false;
 bool showImGuiDemo = false;
 bool showAudioDemo = false;
@@ -87,13 +90,15 @@ void showMainBar(bool* p_open)
             {
                 printf("GPU Profiler\n");
             }
-            if (ImGui::MenuItem("Memory"))
+            if (ImGui::MenuItem("Memory", NULL, &showMemory))
             {
                 printf("Memory Profiler\n");
+                profiler.drawMemoryWindow();
             }
-            if (ImGui::MenuItem("Battery"))
+            if (ImGui::MenuItem("Battery", NULL, &showBattery))
             {
                 printf("Battery Profiler\n");
+                profiler.drawBatteryLevelwindow();
             }
             ImGui::Separator();
             if (ImGui::MenuItem("FPS Counter", NULL, &showFPS))
@@ -136,6 +141,16 @@ void showMainBar(bool* p_open)
     if (showFPS)
     {
         profiler.drawFPSwindow();
+    }
+
+    if (showBattery)
+    {
+        profiler.drawBatteryLevelwindow();
+    }
+
+    if (showMemory)
+    {
+        profiler.drawMemoryWindow();
     }
 
     if (showImPlotDemo)
