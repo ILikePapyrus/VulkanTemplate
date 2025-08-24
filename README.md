@@ -15,4 +15,3 @@ A template repository that has:
 
 # ***TODO*** 
 - Profiling and graphs
-- OS recognition
