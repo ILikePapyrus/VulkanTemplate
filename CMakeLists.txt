@@ -64,8 +64,9 @@ endif ()
 
 set(CMAKE_CXX_STANDARD 20)
 
-# Font import
-file(COPY ${CMAKE_SOURCE_DIR}/assets/fonts DESTINATION ${CMAKE_BINARY_DIR}/assets/audio)
+# Assets import
+file(COPY ${CMAKE_SOURCE_DIR}/assets/fonts/ DESTINATION ${CMAKE_BINARY_DIR}/assets/fonts)
+file(COPY ${CMAKE_SOURCE_DIR}/assets/audio/ DESTINATION ${CMAKE_BINARY_DIR}/assets/audio)
 
 # Import libs
 target_link_libraries(VulkanTemplate glfw ${Vulkan_LIBRARIES} OpenAL::OpenAL SndFile::sndfile)
