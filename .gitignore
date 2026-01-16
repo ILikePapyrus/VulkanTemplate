@@ -1,0 +1,33 @@
+# Build directories
+build/
+cmake-build-*/
+
+# OS Generated files
+.DS_STORE
+.DS_STORE?
+._*
+.Spotlight-V100
+.Thrashes
+ehthumbs.db
+Thumbs.db
+
+# IDE Files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Executables
+*.exe
+*.out
+
+# Log files
+*.log
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+CMakeScripts/
+cmake_install.cmake
+MakeFile
